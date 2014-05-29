@@ -142,15 +142,15 @@ gnuplot.plot(torch.sin(x))
 ```
 ![](doc/plot_x.png)
 
-In more general form, plot vector ` y vs x ` using the format
+In more general form, plot vector `y` vs `x` using the format
 specified. The possible entries of format string can be
-  * '.' for dots
-  * '+' for points
-  * '-' for lines
-  * '+-' for points and lines
-  * '~' for using smoothed lines with cubic interpolation
-  * '|' for using boxes
-  * 'v' for drawing vector fiels. (In this case, x and y have to be two column vectors (x,xdelta),(y,ydelta))
+  * `.` for dots
+  * `+` for points
+  * `-` for lines
+  * `+-` for points and lines
+  * `~` for using smoothed lines with cubic interpolation
+  * `|` for using boxes
+  * `v` for drawing vector fiels. (In this case, `x` and `y` have to be two column vectors `(x, xdelta)`, `(y, ydelta)`)
   * custom string, one can also pass custom strings to use full capability of gnuplot.
 
 ```lua
