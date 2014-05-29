@@ -154,7 +154,7 @@ specified. The possible entries of format string can be
   * custom string, one can also pass custom strings to use full capability of gnuplot.
 
 ```lua
-x=torch.linspace(-2*math.pi,2*math.pi)
+x = torch.linspace(-2*math.pi,2*math.pi)
 gnuplot.plot('Sin',x/math.pi,torch.sin(x),'|')
 ```
 ![](doc/plot_xyf.png)
@@ -162,7 +162,7 @@ gnuplot.plot('Sin',x/math.pi,torch.sin(x),'|')
 To plot multiple curves at a time, one can pass each plot struct in a table.
 
 ```lua
-x=torch.linspace(-2*math.pi,2*math.pi)
+x = torch.linspace(-2*math.pi,2*math.pi)
 gnuplot.plot({'Cos',x/math.pi,torch.cos(x),'~'},{'Sin',x/math.pi,torch.sin(x),'|'})
 ```
 ![](doc/plot_sincos.png)
@@ -171,12 +171,12 @@ One can pass data with multiple columns and use custom gnuplot style strings too
 is used, the first column is assumed to be the `x` values and the rest of the columns are separate `y` series.
 
 ```lua
-x=torch.linspace(-5,5)
-y=torch.sin(x)
+x = torch.linspace(-5,5)
+y = torch.sin(x)
 yp = y+0.3+torch.rand(x:size())*0.1
 ym = y-(torch.rand(x:size())*0.1+0.3)
-yy=torch.cat(x,ym,2)
-yy=torch.cat(yy,yp,2)
+yy = torch.cat(x,ym,2)
+yy = torch.cat(yy,yp,2)
 gnuplot.plot({yy,' filledcurves'},{x,yp,'lines ls 1'},{x,ym,'lines ls 1'},{x,y,'lines ls 1'})
 ```
 ![](doc/plot_filled.png)
@@ -195,7 +195,7 @@ interactive capabilities is being used by `Gnuplot` backend (like `x11` or
 
 Plot surface ` z ` in 3D.
 ```lua
-x=torch.linspace(-1,1)
+x = torch.linspace(-1,1)
 xx = torch.Tensor(x:size(1),x:size(1)):zero():addr(1,x,x)
 xx = xx*math.pi*6
 gnuplot.splot(torch.sin(xx))
@@ -209,7 +209,7 @@ to be the same shape as `z`.
 One can also display multiple surfaces at a time.
 
 ```lua
-x=torch.linspace(-1,1)
+x = torch.linspace(-1,1)
 xx = torch.Tensor(x:size(1),x:size(1)):zero():addr(1,x,x)
 xx = xx*math.pi*2
 gnuplot.splot({torch.sin(xx)},{torch.sin(xx)+2})
@@ -230,7 +230,7 @@ used, however, one can also use any color palette available in
 `Gnuplot`.
 
 ```lua
-x=torch.linspace(-1,1)
+x = torch.linspace(-1,1)
 xx = torch.Tensor(x:size(1),x:size(1)):zero():addr(1,x,x)
 xx = xx*math.pi*6
 gnuplot.imagesc(torch.sin(xx),'color')
@@ -377,8 +377,8 @@ hidden. Only supported for gnuplot version 4.4 and above.
 <a name="gnuplot.movelegend"/>
 ### gnuplot.movelegend(hloc,vloc) ###
 
-Set the location of legend key. `hloc` can be '''left', 'right' or
-'center`'. `vloc` can be `'top', 'bottom' or 'middle'''. Only
+Set the location of legend key. `hloc` can be `left`, `right` or
+`center`. `vloc` can be `top`, `bottom` or `middle`. Only
 supported for gnuplot version 4.4 and above.
 
 <a name="gnuplot.axis"/>
@@ -390,11 +390,10 @@ Sets the properties of axis for the current plot.
   * `image` : scales the axis aspect ratio so that a circle is drawn as circle.
   * `equal` : same as `image`.
   * `fill` : resets the aspect ratio of the plot to original values so that it fills up the canvas as good as possible.
-  * {xmin,xmax,ymin,ymax} : Sets the limits of x and y axes. Use an empty string (2 apostophes in a row) if you want to keep the current value.
+  * `{xmin,xmax,ymin,ymax}` : Sets the limits of x and y axes. Use an empty string (2 apostophes in a row) if you want to keep the current value.
 
 <a name="gnuplot.raw"/>
 ### gnuplot.raw(command) ###
 
 This command is useful for advanced users of gnuplot. `command` is
 directly passed to gnuplot without any formatting.
-
