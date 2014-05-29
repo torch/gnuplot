@@ -397,6 +397,7 @@ Sets the properties of axis for the current plot.
 
 This command is useful for advanced users of gnuplot. `command` is
 directly passed to gnuplot without any formatting.
+
 Let's see an example, by plotting labels for the `xtic`
 
 ```lua
