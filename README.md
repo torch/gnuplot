@@ -34,8 +34,8 @@ provides a free form interface to gnuplot.
 ## Customizing Gnuplot Defaults ##
 
 The default styles of gnuplot can be customized using a personal `.gnuplot` file
-located in the users home directory. A sample file is given below as a sample. You can 
-paste the contents into `$HOME/.gnuplot` file and gnuplot will use the styles 
+located in the users home directory. A sample file is given below as a sample. You can
+paste the contents into `$HOME/.gnuplot` file and gnuplot will use the styles
 specified in this file.
 
 ```
@@ -142,19 +142,19 @@ gnuplot.plot(torch.sin(x))
 ```
 ![](doc/plot_x.png)
 
-In more general form, plot vector ` y vs x ` using the format
+In more general form, plot vector `y` vs `x` using the format
 specified. The possible entries of format string can be
-  * '.' for dots
-  * '+' for points
-  * '-' for lines
-  * '+-' for points and lines
-  * '~' for using smoothed lines with cubic interpolation
-  * '|' for using boxes
-  * 'v' for drawing vector fiels. (In this case, x and y have to be two column vectors (x,xdelta),(y,ydelta))
+  * `.` for dots
+  * `+` for points
+  * `-` for lines
+  * `+-` for points and lines
+  * `~` for using smoothed lines with cubic interpolation
+  * `|` for using boxes
+  * `v` for drawing vector fiels. (In this case, `x` and `y` have to be two column vectors `(x, xdelta)`, `(y, ydelta)`)
   * custom string, one can also pass custom strings to use full capability of gnuplot.
 
 ```lua
-x=torch.linspace(-2*math.pi,2*math.pi)
+x = torch.linspace(-2*math.pi,2*math.pi)
 gnuplot.plot('Sin',x/math.pi,torch.sin(x),'|')
 ```
 ![](doc/plot_xyf.png)
@@ -162,7 +162,7 @@ gnuplot.plot('Sin',x/math.pi,torch.sin(x),'|')
 To plot multiple curves at a time, one can pass each plot struct in a table.
 
 ```lua
-x=torch.linspace(-2*math.pi,2*math.pi)
+x = torch.linspace(-2*math.pi,2*math.pi)
 gnuplot.plot({'Cos',x/math.pi,torch.cos(x),'~'},{'Sin',x/math.pi,torch.sin(x),'|'})
 ```
 ![](doc/plot_sincos.png)
@@ -171,12 +171,12 @@ One can pass data with multiple columns and use custom gnuplot style strings too
 is used, the first column is assumed to be the `x` values and the rest of the columns are separate `y` series.
 
 ```lua
-x=torch.linspace(-5,5)
-y=torch.sin(x)
+x = torch.linspace(-5,5)
+y = torch.sin(x)
 yp = y+0.3+torch.rand(x:size())*0.1
 ym = y-(torch.rand(x:size())*0.1+0.3)
-yy=torch.cat(x,ym,2)
-yy=torch.cat(yy,yp,2)
+yy = torch.cat(x,ym,2)
+yy = torch.cat(yy,yp,2)
 gnuplot.plot({yy,' filledcurves'},{x,yp,'lines ls 1'},{x,ym,'lines ls 1'},{x,y,'lines ls 1'})
 ```
 ![](doc/plot_filled.png)
@@ -195,7 +195,7 @@ interactive capabilities is being used by `Gnuplot` backend (like `x11` or
 
 Plot surface ` z ` in 3D.
 ```lua
-x=torch.linspace(-1,1)
+x = torch.linspace(-1,1)
 xx = torch.Tensor(x:size(1),x:size(1)):zero():addr(1,x,x)
 xx = xx*math.pi*6
 gnuplot.splot(torch.sin(xx))
@@ -209,7 +209,7 @@ to be the same shape as `z`.
 One can also display multiple surfaces at a time.
 
 ```lua
-x=torch.linspace(-1,1)
+x = torch.linspace(-1,1)
 xx = torch.Tensor(x:size(1),x:size(1)):zero():addr(1,x,x)
 xx = xx*math.pi*2
 gnuplot.splot({torch.sin(xx)},{torch.sin(xx)+2})
@@ -230,7 +230,7 @@ used, however, one can also use any color palette available in
 `Gnuplot`.
 
 ```lua
-x=torch.linspace(-1,1)
+x = torch.linspace(-1,1)
 xx = torch.Tensor(x:size(1),x:size(1)):zero():addr(1,x,x)
 xx = xx*math.pi*6
 gnuplot.imagesc(torch.sin(xx),'color')
@@ -377,8 +377,8 @@ hidden. Only supported for gnuplot version 4.4 and above.
 <a name="gnuplot.movelegend"/>
 ### gnuplot.movelegend(hloc,vloc) ###
 
-Set the location of legend key. `hloc` can be '''left', 'right' or
-'center`'. `vloc` can be `'top', 'bottom' or 'middle'''. Only
+Set the location of legend key. `hloc` can be `left`, `right` or
+`center`. `vloc` can be `top`, `bottom` or `middle`. Only
 supported for gnuplot version 4.4 and above.
 
 <a name="gnuplot.axis"/>
@@ -390,7 +390,7 @@ Sets the properties of axis for the current plot.
   * `image` : scales the axis aspect ratio so that a circle is drawn as circle.
   * `equal` : same as `image`.
   * `fill` : resets the aspect ratio of the plot to original values so that it fills up the canvas as good as possible.
-  * {xmin,xmax,ymin,ymax} : Sets the limits of x and y axes. Use an empty string (2 apostophes in a row) if you want to keep the current value.
+  * `{xmin,xmax,ymin,ymax}` : Sets the limits of x and y axes. Use an empty string (2 apostophes in a row) if you want to keep the current value.
 
 <a name="gnuplot.raw"/>
 ### gnuplot.raw(command) ###
@@ -398,3 +398,16 @@ Sets the properties of axis for the current plot.
 This command is useful for advanced users of gnuplot. `command` is
 directly passed to gnuplot without any formatting.
 
+Let's see an example, by plotting labels for the `xtic`
+
+```lua
+LondonTemp = torch.Tensor{{9, 10, 12, 15, 18, 21, 23, 23, 20, 16, 12, 9},
+                          {5,  5,  6,  7, 10, 13, 15, 15, 13, 10,  7, 5}}
+gnuplot.plot({'High [°C]',LondonTemp[1]},{'Low [°C]',LondonTemp[2]})
+gnuplot.raw('set xtics ("Jan" 1, "Feb" 2, "Mar" 3, "Apr" 4, "May" 5, "Jun" 6, "Jul" 7, "Aug" 8, "Sep" 9, "Oct" 10, "Nov" 11, "Dec" 12)')
+gnuplot.plotflush()
+gnuplot.axis{0,13,0,''}
+gnuplot.grid(true)
+gnuplot.title('London average temperature')
+```
+![](doc/plot_raw.png)
