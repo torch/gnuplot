@@ -261,7 +261,7 @@ function gnuplot.setgnuplotexe(exe)
    _gptable.exe = exe
    local v,vv = findgnuplotversion(exe)
    if v < 4 then error('gnuplot version 4 is required') end
-   if vv < 4 then 
+   if v == 4 and vv < 4 then 
       _gptable.hasrefresh = false
       print('Some functionality like adding title, labels, ... will be disabled, it is better to install gnuplot version 4.4')
    else
