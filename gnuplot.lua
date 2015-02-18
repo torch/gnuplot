@@ -190,7 +190,7 @@ local function findgnuplotexe()
          if  v < 4 then
             error('gnuplot version 4 is required')
          end
-         if vv < 4 then
+         if v == 4 and vv < 4 then
             -- try to find gnuplot44
             if o == 'linux' and paths.filep('/usr/bin/gnuplot44') then
                local ss = '/usr/bin/gnuplot44'
