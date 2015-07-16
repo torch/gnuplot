@@ -14,7 +14,7 @@ The plotting package currently uses [gnuplot](http://gnuplot.info) as
 a backend to display data. In particular, `Gnuplot` version `4.4`
 or above is suggested for full support of all functionality.
 
-By default, plot package will search for terminal in following order
+By default, the plot package will search for terminal in following order:
   * ` windows ` terminal if operating system is windows
   * ` wxt `, ` qt `, ` x11 `  terminal if operating system is linux
   * ` aqua `, `wxt`, ` qt `, ` x11 ` terminal if operating system is mac
@@ -143,7 +143,7 @@ gnuplot.plot(torch.sin(x))
 ![](doc/plot_x.png)
 
 In more general form, plot vector `y` vs `x` using the format
-specified. The possible entries of format string can be
+specified. The possible entries of format string can be:
   * `.` for dots
   * `+` for points
   * `-` for lines
