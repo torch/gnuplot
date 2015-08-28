@@ -4,13 +4,13 @@
 A plotting package to visualize [Tensor](https://github.com/torch/torch7/blob/master/doc/tensor.md#tensor) objects.
 Functions fall into several types of categories:
 
-  * [Plotting lines](doc/plotline.md#gnuplot.line.dok)
-  * [Plotting matrices](doc/plotmatrix.md#gnuplot.image.dok)
-  * [Plotting surfaces](doc/plotsurface.md#gnuplot.surface.dok)
-  * [Plotting histograms](doc/plothistogram.md#gnuplot.histogram.dok)
-  * [Saving to Files](doc/file.md#gnuplot.files.dok)
-  * [Common operations](doc/decorateplot.md#gnuplot.commons.dok)
-  
+  * [Plotting lines](plotline.md#gnuplot.line.dok)
+  * [Plotting matrices](plotmatrix.md#gnuplot.image.dok)
+  * [Plotting surfaces](plotsurface.md#gnuplot.surface.dok)
+  * [Plotting histograms](plothistogram.md#gnuplot.histogram.dok)
+  * [Saving to Files](file.md#gnuplot.files.dok)
+  * [Common operations](decorateplot.md#gnuplot.commons.dok)
+
 The plotting package currently uses [gnuplot](http://gnuplot.info) as
 a backend to display data. In particular, `Gnuplot` version `4.4`
 or above is suggested for full support of all functionality.
@@ -29,5 +29,5 @@ rotating...
 
 The `Gnuplot` port uses `pipes` to communicate with `gnuplot`,
 therefore each plotting session is persistent and additional commands
-can be sent. For advanced users [gnuplot.raw](doc/common.md#gnuplot.raw)
+can be sent. For advanced users [gnuplot.raw](common.md#gnuplot.raw)
 provides a free form interface to gnuplot.
