@@ -1,0 +1,14 @@
+site_name: gnuplot
+theme : simplex
+repo_url : https://github.com/torch/gnuplot
+use_directory_urls : false
+markdown_extensions: [extra]
+docs_dir : doc
+pages:
+- [index.md, Gnuplot]
+- [plotline.md, Plotting Lines]
+- [plotmatrix.md, Plotting Matrices]
+- [plotsurface.md, Plotting Surfaces]
+- [plothistogram.md, Plotting Histograms]
+- [file.md, Saving Plots]
+- [common.md, Common Operations]
