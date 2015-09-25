@@ -8,6 +8,7 @@ Functions fall into several types of categories:
   * [Plotting matrices](doc/plotmatrix.md#gnuplot.image.dok)
   * [Plotting surfaces](doc/plotsurface.md#gnuplot.surface.dok)
   * [Plotting histograms](doc/plothistogram.md#gnuplot.histogram.dok)
+  * [Plotting 3D points](doc/plot3dpoints.md#gnuplot.scatter3.dok)
   * [Saving to Files](doc/file.md#gnuplot.files.dok)
   * [Common operations](doc/decorateplot.md#gnuplot.commons.dok)
   

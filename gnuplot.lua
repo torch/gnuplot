@@ -467,6 +467,62 @@ local function getsplotvars(t)
    return legend,x,y,z
 end
 
+local function getscatter3vars(t)
+   local legend = nil
+   local x = nil
+   local y = nil
+   local z = nil
+
+   local function istensor(v)
+      return type(v) == 'userdata' and torch.typename(v):sub(-6) == 'Tensor'
+   end
+
+   local function isstring(v)
+      return type(v) == 'string'
+   end
+
+   if #t ~= 3 and #t ~= 4 then
+      error('expecting [string,] tensor, tensor, tensor')
+   end
+
+   if isstring(t[1]) then
+      if #t ~= 4 then
+          error('expecting [string,] tensor, tensor, tensor')
+      end
+      for i = 2, 4 do
+        if not istensor(t[i]) then
+           error('expecting [string,] tensor, tensor, tensor')
+        end
+      end
+      legend = t[1]
+      x = t[2]
+      y = t[3]
+      z = t[4]
+   elseif istensor(t[1]) then
+      if #t ~= 3 then
+          error('expecting [string,] tensor, tensor, tensor')
+      end
+      for i = 2, 3 do
+        if not istensor(t[i]) then
+           error('expecting [string,] tensor, tensor, tensor')
+        end
+      end
+      x = t[1]
+      y = t[2]
+      z = t[3]
+      legend = ''
+   else
+      error('expecting [string,] tensor, tensor, tensor')
+   end
+   
+   assert(x:dim() == 1 and y:dim() == 1 and z:dim() == 1, 
+          'x, y and z must be 1D')
+   assert(x:isSameSizeAs(y) and x:isSameSizeAs(z),
+          'x, y and z must be the same size')
+
+   return legend, x, y, z
+end
+
 local function getimagescvars(t)
    local palette  = nil
    local x = nil
@@ -593,6 +649,35 @@ local function gnu_splot_string(legend,x,y,z)
       table.insert(dstr,'e\n')
    end
    return hstr,table.concat(dstr)
+end
+
+local function gnu_scatter3_string(legend, x, y, z)
+   local hstr = string.format('%s\n','set contour base')
+   hstr = string.format('%s%s\n',hstr,'set style data points\n')
+   hstr = string.format('%s%s\n',hstr,'set hidden3d\n')
+
+   hstr = hstr .. 'splot '
+   local dstr = {''}
+   local coef
+   for i = 1, #legend do
+      if i > 1 then hstr = hstr .. ' , ' end
+      hstr = hstr .. " '-'title '" .. legend[i] .. "' " .. 'with points'
+   end
+   hstr = hstr .. '\n'
+   for i = 1, #legend do
+      local xi = x[i]
+      local yi = y[i]
+      local zi = z[i]
+      for j = 1, xi:size(1) do
+         local xij = xi[j]
+         local yij = yi[j]
+         local zij = zi[j]
+         table.insert(dstr, 
+                      string.format('%g %g %g\n', xij, yij, zij))
+      end
+      table.insert(dstr, 'e\n')
+   end
+   return hstr, table.concat(dstr)
 end
 
 local function gnu_imagesc_string(x,palette)
@@ -750,6 +835,11 @@ local function gnulplot(legend,x,y,format)
 end
 local function gnusplot(legend,x,y,z)
    local hdr,data = gnu_splot_string(legend,x,y,z)
+   writeToCurrent(hdr)
+   writeToCurrent(data)
+end
+local function gnuscatter3(legend, x, y, z)
+   local hdr, data = gnu_scatter3_string(legend, x, y, z)
    writeToCurrent(hdr)
    writeToCurrent(data)
 end
@@ -916,6 +1006,41 @@ function gnuplot.splot(...)
       zdata[#zdata+1] = z
    end
    gnusplot(legends,xdata,ydata,zdata)
+end
+
+-- scatter3(x, y, z)
+-- scatter3({x1, y1, z1}, {x2, y2, z2})
+-- scatter3({'name1', x1, y1, z1}, {'name2', x2, y2, z2})
+function gnuplot.scatter3(...)
+   local arg = {...}
+   if select('#', ...) == 0 then
+      error('no inputs, expecting at least a matrix')
+   end
+
+   local xdata = {}
+   local ydata = {}
+   local zdata = {}
+   local legends = {}
+
+   if type(arg[1]) == "table" then
+      if type(arg[1][1]) == "table" then
+         arg = arg[1]
+      end
+      for i,v in ipairs(arg) do
+         local l, x, y, z = getscatter3vars(v)
+         legends[#legends + 1] = l
+         xdata[#xdata + 1] = x
+         ydata[#ydata + 1] = y
+         zdata[#zdata + 1] = z
+      end
+   else
+      local l, x, y, z = getscatter3vars(arg)
+      legends[#legends + 1] = l
+      xdata[#xdata + 1] = x
+      ydata[#ydata + 1] = y
+      zdata[#zdata + 1] = z
+   end
+   gnuscatter3(legends, xdata, ydata, zdata)
 end
 
 -- imagesc(x) -- x 2D tensor [0 .. 1]
