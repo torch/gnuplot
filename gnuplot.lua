@@ -803,10 +803,13 @@ function gnuplot.figprint(fname)
    writeToCurrent('set term ' .. _gptable[_gptable.current].term .. ' ' .. _gptable.current .. '\n')
 end
 
-function gnuplot.figure(n)
+function gnuplot.figure(n, config)
+   config = config or {}
    local gp = getfigure(n)
    writeToCurrent('set term ' .. _gptable[_gptable.current].term .. ' ' .. _gptable.current .. '\n')
-   writeToCurrent('raise')
+   if not config.noraise then
+      writeToCurrent('raise')
+   end
    return _gptable.current
 end
 
