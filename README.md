@@ -10,7 +10,7 @@ Functions fall into several types of categories:
   * [Plotting histograms](doc/plothistogram.md#gnuplot.histogram.dok)
   * [Plotting 3D points](doc/plot3dpoints.md#gnuplot.scatter3.dok)
   * [Saving to Files](doc/file.md#gnuplot.files.dok)
-  * [Common operations](doc/decorateplot.md#gnuplot.commons.dok)
+  * [Common operations](doc/common.md)
   
 The plotting package currently uses [gnuplot](http://gnuplot.info) as
 a backend to display data. In particular, `Gnuplot` version `4.4`
