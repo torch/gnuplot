@@ -588,9 +588,8 @@ local function gnuplot_string(legend,x,y,format)
       elseif f == '~' or f == 'csplines' then return 'smooth csplines'
       elseif f == 'acsplines' then return 'smooth acsplines'
       elseif f == 'V' or f == 'v' or f == 'vectors' then vecplot[i]=true;return 'with vectors'
-      else return 'with ' .. f
+      else return f
       end
-      error("format string accepted: '.' or '-' or '+' or '+-' or '~' or '~ COEF'")
    end
    for i=1,#legend do
       if i > 1 then hstr = hstr .. ' , ' end
