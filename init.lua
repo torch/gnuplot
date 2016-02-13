@@ -1,7 +1,7 @@
 require 'torch'
 
 gnuplot = {}
-include('gnuplot.lua')
-include('hist.lua')
+require('gnuplot.gnuplot')
+require('gnuplot.hist')
 
 return gnuplot
