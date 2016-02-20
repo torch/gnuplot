@@ -23,7 +23,7 @@ specified. The possible entries of format string can be:
   * `+-` for points and lines
   * `~` for using smoothed lines with cubic interpolation
   * `|` for using boxes
-  * `v` for drawing vector fiels. (In this case, `x` and `y` have to be two column vectors `(x, xdelta)`, `(y, ydelta)`)
+  * `v` for drawing vector fields. (In this case, `x` and `y` have to be two column vectors `(x, xdelta)`, `(y, ydelta)`)
   * custom string, one can also pass custom strings to use full capability of gnuplot.
 
 ```lua
