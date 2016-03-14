@@ -8,8 +8,9 @@ Functions fall into several types of categories:
   * [Plotting matrices](plotmatrix.md#gnuplot.image.dok)
   * [Plotting surfaces](plotsurface.md#gnuplot.surface.dok)
   * [Plotting histograms](plothistogram.md#gnuplot.histogram.dok)
+  * [Plotting 3D points](plot3dpoints.md#gnuplot.scatter3.dok)
   * [Saving to Files](file.md#gnuplot.files.dok)
-  * [Common operations](decorateplot.md#gnuplot.commons.dok)
+  * [Common operations](common.md)
 
 The plotting package currently uses [gnuplot](http://gnuplot.info) as
 a backend to display data. In particular, `Gnuplot` version `4.4`
