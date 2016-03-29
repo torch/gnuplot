@@ -732,6 +732,18 @@ local function filefigure(fname,term,n)
    if not _gptable.hasrefresh then
       print('Plotting to files is disabled in gnuplot 4.2, install gnuplot 4.4')
    end
+
+   -- Check whether the output directory can be written to here - torch.PipeFile
+   -- has no read/write option so we can't read back any error messages from
+   -- gnuplot, and writing to 'non_existent_dir/plot.png' fails silently.
+   local outputDir = paths.dirname(fname)
+   if outputDir == '' then
+      outputDir = '.'
+   end
+   if not paths.dirp(outputDir) then
+      error('cannot save to ' .. fname .. ': directory does not exist')
+   end
+
    local gp = getfigure(n)
    gp.fname = fname
    gp.term = term
