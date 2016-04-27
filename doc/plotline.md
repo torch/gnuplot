@@ -50,6 +50,6 @@ yp = y+0.3+torch.rand(x:size())*0.1
 ym = y-(torch.rand(x:size())*0.1+0.3)
 yy = torch.cat(x,ym,2)
 yy = torch.cat(yy,yp,2)
-gnuplot.plot({yy,' filledcurves'},{x,yp,'with lines ls 1'},{x,ym,'with lines ls 1'},{x,y,'with lines ls 1'})
+gnuplot.plot({yy,'with filledcurves fill transparent solid 0.5'},{x,yp,'with lines ls 1'},{x,ym,'with lines ls 1'},{x,y,'with lines ls 1'})
 ```
 ![](plot_filled.png)
