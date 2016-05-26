@@ -908,6 +908,19 @@ function gnuplot.grid(toggle)
       refreshCurrent()
    end
 end
+function gnuplot.logscale(toggle)
+   if not _gptable.hasrefresh then
+      print('gnuplot.logscale disabled')
+      return
+   end
+   if toggle then
+      writeToCurrent('set logscale y')
+      refreshCurrent()
+   else
+      writeToCurrent('unset logscale y')
+      refreshCurrent()
+   end
+end
 function gnuplot.movelegend(hloc,vloc)
    if not _gptable.hasrefresh then
       print('gnuplot.movelegend disabled')
