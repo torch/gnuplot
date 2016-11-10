@@ -52,5 +52,10 @@ allows, `pdf` files are also supported.
 <a name="gnuplot.plotflush"></a>
 ### gnuplot.plotflush([n]) ###
 
-This command sends `unset output` to underlying gnuplot. Usefull for
+This command sends `unset output` to underlying gnuplot. Useful for
 flushing file based terminals.
+
+<a name="gnuplot.close"></a>
+### gnuplot.close() ###
+
+Closes open file handles. Prevents too many handles staying open if creating lots of plots.
