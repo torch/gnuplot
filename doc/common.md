@@ -96,4 +96,31 @@ gnuplot.axis{0,13,0,''}
 gnuplot.grid(true)
 gnuplot.title('London average temperature')
 ```
-![](plot_raw.png)
+![](plot_raw.png) 
+
+We can show another example of its usage by labeling data points. Here, we generate two clusters of data with two Gaussian distributions, write it to a text file in three columns of (label, x_coor, y_coor), and plot the points with labels. 
+
+```lua 
+labels_tab = {}
+for i=1,20 do
+  table.insert(labels_tab, math.ceil(i/10))
+end
+x = torch.cat(torch.Tensor(10):normal(2, 0.05), torch.Tensor(10):normal(3, 0.05), 1)
+y = torch.cat(torch.Tensor(10):normal(2, 0.05), torch.Tensor(10):normal(3, 0.05), 1)
+
+file = io.open('gaussians.txt', 'w')
+io.output(file)
+for i=1,20 do
+  io.write(string.format('%d %f %f\n', labels_tab[i], x[i], y[i]))
+end
+io.close(file)
+
+gnuplot.pngfigure('plot_labels.png')
+gnuplot.title('A Tale of Two Gaussians')
+gnuplot.raw("plot 'gaussians.txt' using 2:3:(sprintf('%d', $1)) with labels point pt 7 offset char 0.5,0.5 notitle")
+gnuplot.xlabel('x')
+gnuplot.ylabel('y')
+gnuplot.grid(true)
+gnuplot.plotflush()
+```
+![](plot_labels.png)
