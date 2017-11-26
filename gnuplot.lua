@@ -609,6 +609,7 @@ local function gnuplot_string(legend,x,y,format)
          elseif yi:dim() == 1 then
             table.insert(dstr,string.format('%g %g\n',xi[j],yi[j]))
          else
+            local unpack = unpack or table.unpack
             table.insert(dstr,string.format(string.rep('%g ',1+yi:size(2)) .. '\n',xi[j],unpack(yi[j]:clone():storage():totable())))
          end
       end
